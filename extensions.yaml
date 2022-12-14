@@ -1,0 +1,20 @@
+# Add to extension.yaml:
+
+resources:
+  - name: idfy
+    type: firebaseextensions.v1beta.function
+    properties:
+      # LOCATION is a user-configured parameter value specified by the user
+      # during installation.
+      location: ${LOCATION}
+      eventTrigger:
+        eventType: providers/cloud.firestore/eventTypes/document.create
+        resource: projects/${PROJECT_ID}/databases/(default)/documents/${YOUR_DOCUMENT_PATH}
+  
+params:
+  - param: YOUR_DOCUMENT_PATH
+    label: Cloud Firestore path
+    description: Where do you want to watch for changes?
+    type: string
+    default: path/to/{documentID}  # Specifying a default is optional.
+    required: true
